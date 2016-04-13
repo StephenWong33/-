@@ -29,7 +29,7 @@
 {
     if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
         self.contentView.backgroundColor = WYSGlobalBg;
-        
+
         // 创建label
         UILabel *label = [[UILabel alloc] init];
         label.textColor = WYSRGBColor(67, 67, 67);
@@ -44,7 +44,7 @@
 - (void)setTitle:(NSString *)title
 {
     _title = [title copy];
-    
+
     self.label.text = title;
 }
 

@@ -85,6 +85,7 @@
 		DB1E0E151CBD487100ECBD55 /* WYSTagTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = DB1E0DCA1CBD487100ECBD55 /* WYSTagTextField.m */; };
 		DB7683CF1CBE184100DA0634 /* WYSCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7683CD1CBE184100DA0634 /* WYSCommentViewController.m */; };
 		DB7683D01CBE184100DA0634 /* WYSCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB7683CE1CBE184100DA0634 /* WYSCommentViewController.xib */; };
+		DB7683D81CBE2EF000DA0634 /* WYSHttpTools.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7683D71CBE2EF000DA0634 /* WYSHttpTools.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -246,6 +247,9 @@
 		DB7683CC1CBE184100DA0634 /* WYSCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYSCommentViewController.h; sourceTree = "<group>"; };
 		DB7683CD1CBE184100DA0634 /* WYSCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYSCommentViewController.m; sourceTree = "<group>"; };
 		DB7683CE1CBE184100DA0634 /* WYSCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WYSCommentViewController.xib; sourceTree = "<group>"; };
+		DB7683D21CBE2E8400DA0634 /* Singleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
+		DB7683D61CBE2EF000DA0634 /* WYSHttpTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYSHttpTools.h; sourceTree = "<group>"; };
+		DB7683D71CBE2EF000DA0634 /* WYSHttpTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYSHttpTools.m; sourceTree = "<group>"; };
 		E4498D14700C753CB1106A66 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -318,6 +322,7 @@
 			isa = PBXGroup;
 			children = (
 				DB1E0D2F1CBD487100ECBD55 /* Classes */,
+				DB7683D11CBE248900DA0634 /* Tools */,
 				DB1E0CFC1CBD47A600ECBD55 /* Supporting Files */,
 			);
 			path = "百思不得姐";
@@ -577,6 +582,7 @@
 				DB1E0D951CBD487100ECBD55 /* Category */,
 				DB1E0DA21CBD487100ECBD55 /* Controller */,
 				DB1E0DA71CBD487100ECBD55 /* Foundation+Log.m */,
+				DB7683D21CBE2E8400DA0634 /* Singleton.h */,
 				DB1E0DA81CBD487100ECBD55 /* main.m */,
 				DB1E0DA91CBD487100ECBD55 /* PrefixHeader.pch */,
 				DB1E0DAA1CBD487100ECBD55 /* View */,
@@ -671,6 +677,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		DB7683D11CBE248900DA0634 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				DB7683D61CBE2EF000DA0634 /* WYSHttpTools.h */,
+				DB7683D71CBE2EF000DA0634 /* WYSHttpTools.m */,
+			);
+			name = Tools;
+			path = "Classes/Publish-发布/Tools";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -736,6 +752,7 @@
 		DB1E0CF11CBD47A600ECBD55 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = WYS;
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Wong Stethen";
 				TargetAttributes = {
@@ -915,6 +932,7 @@
 				DB1E0DFA1CBD487100ECBD55 /* WYSNewViewController.m in Sources */,
 				DB1E0DD41CBD487100ECBD55 /* WYSTopic.m in Sources */,
 				DB1E0DF31CBD487100ECBD55 /* WYSSettingViewController.m in Sources */,
+				DB7683D81CBE2EF000DA0634 /* WYSHttpTools.m in Sources */,
 				DB1E0DE21CBD487100ECBD55 /* WYSTopicVoiceView.m in Sources */,
 				DB1E0DCE1CBD487100ECBD55 /* WYSRecommendTagsViewController.m in Sources */,
 				DB1E0DFE1CBD487100ECBD55 /* UIColor+WYSExtension.m in Sources */,
@@ -1058,6 +1076,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.stephen.www.-----";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1073,6 +1092,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.stephen.www.-----";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

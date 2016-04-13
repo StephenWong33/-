@@ -41,10 +41,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     // 初始化表格
     [self setupTableView];
-    
+
     // 添加刷新控件
     [self setupRefresh];
 }
@@ -58,13 +58,13 @@ static NSString * const WYSTopicCellId = @"topic";
     self.tableView.contentInset = UIEdgeInsetsMake(top, 0, bottom, 0);
     // 设置滚动条的内边距
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
-    
+
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor clearColor];
 
     // 注册
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([WYSTopicCell class]) bundle:nil] forCellReuseIdentifier:WYSTopicCellId];
-    
+
     // 监听tabbar点击的通知
     [WYSNoteCenter addObserver:self selector:@selector(tabBarSelect) name:WYSTabBarDidSelectNotification object:nil];
 }
@@ -73,23 +73,23 @@ static NSString * const WYSTopicCellId = @"topic";
 {
     // 如果是连续选中2次, 直接刷新
     if (self.lastSelectedIndex == self.tabBarController.selectedIndex
-//        && self.tabBarController.selectedViewController == self.navigationController
+        //        && self.tabBarController.selectedViewController == self.navigationController
         && self.view.isShowingOnKeyWindow) {
         [self.tableView.mj_header beginRefreshing];
     }
-    
+
     // 记录这一次选中的索引
     self.lastSelectedIndex = self.tabBarController.selectedIndex;
 }
 
 - (void)setupRefresh
 {
-   
+
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopics)];
     // 自动改变透明度
     self.tableView.mj_header.automaticallyChangeAlpha = YES;
     [self.tableView.mj_header beginRefreshing];
-    
+
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreTopics)];
 }
 
@@ -107,45 +107,39 @@ static NSString * const WYSTopicCellId = @"topic";
 {
     // 结束上啦
     [self.tableView.mj_footer endRefreshing];
-    
+
     // 参数
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"a"] = self.a;
     params[@"c"] = @"data";
     params[@"type"] = @(self.type);
     self.params = params;
-    
+    NSString *urlString = @"http://api.budejie.com/api/api_open.php";
     // 发送请求
-    [[AFHTTPSessionManager manager] GET:@"http://api.budejie.com/api/api_open.php" parameters:params success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+    [[WYSHttpTools sharedWYSHttpTools]GET:urlString parameter:params success:^(NSURLSessionDataTask *task, id responseObject) {
         if (self.params != params) return;
-        
+
         // 存储maxtime
         self.maxtime = responseObject[@"info"][@"maxtime"];
-        
+
         // 字典 -> 模型
         self.topics = [WYSTopic mj_objectArrayWithKeyValuesArray:responseObject[@"list"]];
-        
+
         // 刷新表格
         [self.tableView reloadData];
-        
+
         // 结束刷新
         [self.tableView.mj_header endRefreshing];
-        
+
         // 清空页码
         self.page = 0;
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (self.params != params) return;
-        
         // 结束刷新
         [self.tableView.mj_header endRefreshing];
     }];
+
 }
-
-// 先下拉刷新, 再上拉刷新第5页数据
-
-// 下拉刷新成功回来: 只有一页数据, page == 0
-// 上啦刷新成功回来: 最前面那页 + 第5页数据
-
 /**
  * 加载更多的帖子数据
  */
@@ -153,7 +147,7 @@ static NSString * const WYSTopicCellId = @"topic";
 {
     // 结束下拉
     [self.tableView.mj_header endRefreshing];
-    
+
     // 参数
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"a"] = self.a;
@@ -163,31 +157,33 @@ static NSString * const WYSTopicCellId = @"topic";
     params[@"page"] = @(page);
     params[@"maxtime"] = self.maxtime;
     self.params = params;
-    
+    NSString *urlString =  @"http://api.budejie.com/api/api_open.php";
     // 发送请求
-    [[AFHTTPSessionManager manager] GET:@"http://api.budejie.com/api/api_open.php" parameters:params success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+    [[WYSHttpTools sharedWYSHttpTools] GET:urlString parameter:params success:^(NSURLSessionDataTask *task, id responseObject) {
         if (self.params != params) return;
-        
+
         // 存储maxtime
         self.maxtime = responseObject[@"info"][@"maxtime"];
-        
+
         // 字典 -> 模型
         NSArray *newTopics = [WYSTopic mj_objectArrayWithKeyValuesArray:responseObject[@"list"]];
         [self.topics addObjectsFromArray:newTopics];
-        
+
         // 刷新表格
         [self.tableView reloadData];
-        
+
         // 结束刷新
         [self.tableView.mj_footer endRefreshing];
-        
+
         // 设置页码
         self.page = page;
+
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (self.params != params) return;
-        
+
         // 结束刷新
         [self.tableView.mj_footer endRefreshing];
+
     }];
 }
 
@@ -199,9 +195,9 @@ static NSString * const WYSTopicCellId = @"topic";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WYSTopicCell *cell = [tableView dequeueReusableCellWithIdentifier:WYSTopicCellId];
-    
+
     cell.topic = self.topics[indexPath.row];
-    
+
     return cell;
 }
 
@@ -210,7 +206,7 @@ static NSString * const WYSTopicCellId = @"topic";
 {
     // 取出帖子模型
     WYSTopic *topic = self.topics[indexPath.row];
-    
+
     // 返回这个模型对应的cell高度
     return topic.cellHeight;
 }

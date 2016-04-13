@@ -84,56 +84,56 @@
     UIImageView *bgView = [[UIImageView alloc] init];
     bgView.image = [UIImage imageNamed:@"mainCellBackground"];
     self.backgroundView = bgView;
-    
-//    self.profileImageView.layer.cornerRadius = self.profileImageView.width * 0.5;
-//    self.profileImageView.layer.masksToBounds = YES;
+
+    //    self.profileImageView.layer.cornerRadius = self.profileImageView.width * 0.5;
+    //    self.profileImageView.layer.masksToBounds = YES;
 }
 
 - (void)setTopic:(WYSTopic *)topic
 {
     _topic = topic;
-    
+
     // 新浪加V
     self.sinaVView.hidden = !topic.isSina_v;
-    
+
     // 设置头像
     [self.profileImageView setHeader:topic.profile_image];
-    
+
     // 设置名字
     self.nameLabel.text = topic.name;
-    
+
     // 设置帖子的创建时间
     self.createTimeLabel.text = topic.create_time;
-    
+
     // 设置按钮文字
     [self setupButtonTitle:self.dingButton count:topic.ding placeholder:@"顶"];
     [self setupButtonTitle:self.caiButton count:topic.cai placeholder:@"踩"];
     [self setupButtonTitle:self.shareButton count:topic.repost placeholder:@"分享"];
     [self setupButtonTitle:self.commentButton count:topic.comment placeholder:@"评论"];
-    
+
     // 设置帖子的文字内容
     self.text_label.text = topic.text;
-    
+
     // 根据模型类型(帖子类型)添加对应的内容到cell的中间
     if (topic.type == WYSTopicTypePicture) { // 图片帖子
         self.pictureView.hidden = NO;
         self.pictureView.topic = topic;
         self.pictureView.frame = topic.pictureF;
-        
+
         self.voiceView.hidden = YES;
         self.videoView.hidden = YES;
     } else if (topic.type == WYSTopicTypeVoice) { // 声音帖子
         self.voiceView.hidden = NO;
         self.voiceView.topic = topic;
         self.voiceView.frame = topic.voiceF;
-        
+
         self.pictureView.hidden = YES;
         self.videoView.hidden = YES;
     } else if (topic.type == WYSTopicTypeVideo) { // 视频帖子
         self.videoView.hidden = NO;
         self.videoView.topic = topic;
         self.videoView.frame = topic.videoF;
-        
+
         self.voiceView.hidden = YES;
         self.pictureView.hidden = YES;
     } else { // 段子帖子
@@ -141,7 +141,7 @@
         self.voiceView.hidden = YES;
         self.pictureView.hidden = YES;
     }
-    
+
     // 处理最热评论
     if (topic.top_cmt) {
         self.topCmtView.hidden = NO;
@@ -168,14 +168,14 @@
 {
     frame.size.height = self.topic.cellHeight - WYSTopicCellMargin;
     frame.origin.y += WYSTopicCellMargin;
-    
+
     [super setFrame:frame];
 }
 
 - (IBAction)more {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"收藏", @"举报", nil];
     [sheet showInView:self.window];
-    
+
 }
 
 #pragma mark - <UIActionSheetDelegate>
@@ -186,9 +186,9 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 2) return;
-    
+
     if ([WYSLoginTool getUid] == nil) return;
-    
+
     // 开始执行举报\收藏操作
 }
 @end

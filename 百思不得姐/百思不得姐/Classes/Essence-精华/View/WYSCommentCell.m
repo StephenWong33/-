@@ -37,22 +37,21 @@
     UIImageView *bgView = [[UIImageView alloc] init];
     bgView.image = [UIImage imageNamed:@"mainCellBackground"];
     self.backgroundView = bgView;
-    
-//    self.profileImageView.layer.cornerRadius = self.profileImageView.width * 0.5;
-//    self.profileImageView.layer.masksToBounds = YES;
+
+
 }
 
 - (void)setComment:(WYSComment *)comment
 {
     _comment = comment;
-    
+
     [self.profileImageView setHeader:comment.user.profile_image];
-    
+
     self.sexView.image = [comment.user.sex isEqualToString:WYSUserSexMale] ? [UIImage imageNamed:@"Profile_manIcon"] : [UIImage imageNamed:@"Profile_womanIcon"];
     self.contentLabel.text = comment.content;
     self.usernameLabel.text = comment.user.username;
     self.likeCountLabel.text = [NSString stringWithFormat:@"%zd", comment.like_count];
-    
+
     if (comment.voiceuri.length) {
         self.voiceButton.hidden = NO;
         [self.voiceButton setTitle:[NSString stringWithFormat:@"%zd''", comment.voicetime] forState:UIControlStateNormal];

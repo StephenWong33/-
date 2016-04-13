@@ -24,16 +24,16 @@
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
         params[@"a"] = @"square";
         params[@"c"] = @"topic";
-        
+        NSString *urlString = @"http://api.budejie.com/api/api_open.php";
         // 发送请求
-        [[AFHTTPSessionManager manager] GET:@"http://api.budejie.com/api/api_open.php" parameters:params success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
-            NSArray *sqaures = [WYSSquare mj_objectArrayWithKeyValuesArray:responseObject[@"square_list"]];
-            
+        [[WYSHttpTools sharedWYSHttpTools] GET:urlString parameter:params success:^(NSURLSessionDataTask *task, id responseObject) {
+               NSArray *sqaures = [WYSSquare mj_objectArrayWithKeyValuesArray:responseObject[@"square_list"]];
             // 创建方块
             [self createSquares:sqaures];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+            WYSLog(@"%@",error);
         }];
+
     }
     return self;
 }

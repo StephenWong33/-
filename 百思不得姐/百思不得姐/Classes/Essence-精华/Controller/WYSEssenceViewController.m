@@ -26,16 +26,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     // 设置导航栏
     [self setupNav];
-    
+
     // 初始化子控制器
     [self setupChildVces];
-    
+
     // 设置顶部的标签栏
     [self setupTitlesView];
-    
+
     // 底部的scrollView
     [self setupContentView];
 }
@@ -49,22 +49,22 @@
     all.title = @"全部";
     all.type = WYSTopicTypeAll;
     [self addChildViewController:all];
-    
+
     WYSTopicViewController *video = [[WYSTopicViewController alloc] init];
     video.title = @"视频";
     video.type = WYSTopicTypeVideo;
     [self addChildViewController:video];
-    
+
     WYSTopicViewController *voice = [[WYSTopicViewController alloc] init];
     voice.title = @"声音";
     voice.type = WYSTopicTypeVoice;
     [self addChildViewController:voice];
-    
+
     WYSTopicViewController *picture = [[WYSTopicViewController alloc] init];
     picture.title = @"图片";
     picture.type = WYSTopicTypePicture;
     [self addChildViewController:picture];
-    
+
     WYSTopicViewController *word = [[WYSTopicViewController alloc] init];
     word.title = @"段子";
     word.type = WYSTopicTypeWord;
@@ -84,7 +84,7 @@
     titlesView.y =WYSTitilesViewY;
     [self.view addSubview:titlesView];
     self.titlesView = titlesView;
-    
+
     // 底部的红色指示器
     UIView *indicatorView = [[UIView alloc] init];
     indicatorView.backgroundColor = [UIColor redColor];
@@ -92,7 +92,7 @@
     indicatorView.tag = -1;
     indicatorView.y = titlesView.height - indicatorView.height;
     self.indicatorView = indicatorView;
-    
+
     // 内部的子标签
     CGFloat width = titlesView.width / self.childViewControllers.count;
     CGFloat height = titlesView.height;
@@ -104,25 +104,25 @@
         button.x = i * width;
         UIViewController *vc = self.childViewControllers[i];
         [button setTitle:vc.title forState:UIControlStateNormal];
-//      [button layoutIfNeeded]; // 强制布局(强制更新子控件的frame)
+        //      [button layoutIfNeeded]; // 强制布局(强制更新子控件的frame)
         [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor redColor] forState:UIControlStateDisabled];
         button.titleLabel.font = [UIFont systemFontOfSize:14];
         [button addTarget:self action:@selector(titleClick:) forControlEvents:UIControlEventTouchUpInside];
         [titlesView addSubview:button];
-        
+
         // 默认点击了第一个按钮
         if (i == 0) {
             button.enabled = NO;
             self.selectedButton = button;
-            
+
             // 让按钮内部的label根据文字内容来计算尺寸
             [button.titleLabel sizeToFit];
             self.indicatorView.width = button.titleLabel.width;
             self.indicatorView.centerX = button.centerX;
         }
     }
-    
+
     [titlesView addSubview:indicatorView];
 }
 
@@ -132,13 +132,13 @@
     self.selectedButton.enabled = YES;
     button.enabled = NO;
     self.selectedButton = button;
-    
+
     // 动画
     [UIView animateWithDuration:0.25 animations:^{
         self.indicatorView.width = button.titleLabel.width;
         self.indicatorView.centerX = button.centerX;
     }];
-    
+
     // 滚动
     CGPoint offset = self.contentView.contentOffset;
     offset.x = button.tag * self.contentView.width;
@@ -152,7 +152,7 @@
 {
     // 不要自动调整inset
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
+
     UIScrollView *contentView = [[UIScrollView alloc] init];
     contentView.frame = self.view.bounds;
     contentView.delegate = self;
@@ -160,7 +160,7 @@
     [self.view insertSubview:contentView atIndex:0];
     contentView.contentSize = CGSizeMake(contentView.width * self.childViewControllers.count, 0);
     self.contentView = contentView;
-    
+
     // 添加第一个控制器的view
     [self scrollViewDidEndScrollingAnimation:contentView];
 }
@@ -172,10 +172,10 @@
 {
     // 设置导航栏标题
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MainTitle"]];
-    
+
     // 设置导航栏左边的按钮
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithImage:@"MainTagSubIcon" highImage:@"MainTagSubIconClick" target:self action:@selector(tagClick)];
-    
+
     // 设置背景色
     self.view.backgroundColor = WYSGlobalBg;
 }
@@ -191,7 +191,7 @@
 {
     // 当前的索引
     NSInteger index = scrollView.contentOffset.x / scrollView.width;
-    
+
     // 取出子控制器
     UIViewController *vc = self.childViewControllers[index];
     vc.view.x = scrollView.contentOffset.x;
@@ -203,7 +203,7 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     [self scrollViewDidEndScrollingAnimation:scrollView];
-    
+
     // 点击按钮
     NSInteger index = scrollView.contentOffset.x / scrollView.width;
     [self titleClick:self.titlesView.subviews[index]];

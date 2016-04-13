@@ -24,27 +24,27 @@ static NSString * const WYSTagsId = @"tag";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     [self setupTableView];
-    
+
     [self loadTags];
 }
 
 - (void)loadTags
 {
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
-    
+
     // 请求参数
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"a"] = @"tag_recommend";
     params[@"action"] = @"sub";
     params[@"c"] = @"topic";
-    
+    NSString *urlSstring = @"http://api.budejie.com/api/api_open.php";
     // 发送请求
-    [[AFHTTPSessionManager manager] GET:@"http://api.budejie.com/api/api_open.php" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[WYSHttpTools sharedWYSHttpTools]GET:urlSstring parameter:params success:^(NSURLSessionDataTask *task, id responseObject) {
         self.tags = [WYSRecommendTag mj_objectArrayWithKeyValuesArray:responseObject];
         [self.tableView reloadData];
-        
+
         [SVProgressHUD dismiss];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [SVProgressHUD showErrorWithStatus:@"加载标签数据失败!"];
@@ -67,9 +67,9 @@ static NSString * const WYSTagsId = @"tag";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WYSRecommendTagCell *cell = [tableView dequeueReusableCellWithIdentifier:WYSTagsId];
-    
+
     cell.recommendTag = self.tags[indexPath.row];
-    
+
     return cell;
 }
 

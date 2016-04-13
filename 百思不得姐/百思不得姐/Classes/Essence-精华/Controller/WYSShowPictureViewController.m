@@ -22,14 +22,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     // 添加图片
     UIImageView *imageView = [[UIImageView alloc] init];
     imageView.userInteractionEnabled = YES;
     [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(back)]];
     [self.scrollView addSubview:imageView];
     self.imageView = imageView;
-    
+
     // 图片尺寸
     CGFloat pictureW = WYSScreenW;
     CGFloat pictureH = pictureW * self.topic.height / self.topic.width;
@@ -40,10 +40,10 @@
         imageView.size = CGSizeMake(pictureW, pictureH);
         imageView.centerY = WYSScreenH * 0.5;
     }
-    
+
     // 马上显示当前图片的下载进度
     [self.progressView setProgress:self.topic.pictureProgress animated:YES];
-    
+
     // 下载图片
     [imageView sd_setImageWithURL:[NSURL URLWithString:self.topic.large_image] placeholderImage:nil options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
         [self.progressView setProgress:1.0 * receivedSize / expectedSize animated:NO];
@@ -62,7 +62,7 @@
         [SVProgressHUD showErrorWithStatus:@"图片并没下载完毕!"];
         return;
     }
-    
+
     // 将图片写入相册
     UIImageWriteToSavedPhotosAlbum(self.imageView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 }
