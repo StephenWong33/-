@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
@@ -42,6 +43,9 @@
                     <state key="normal" backgroundImage="video-play">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="playVideo:" destination="iN0-l3-epB" eventType="touchUpInside" id="rMy-ct-kwJ"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.86274509803921573" green="0.86274509803921573" blue="0.86274509803921573" alpha="1" colorSpace="calibratedRGB"/>
@@ -64,6 +68,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="imageView" destination="Dsv-po-mdf" id="117-o0-OtE"/>
+                <outlet property="playButtton" destination="P7w-KU-EFv" id="Etk-UB-xn8"/>
                 <outlet property="playcountLabel" destination="U8e-jB-O0h" id="tTj-7X-JWg"/>
                 <outlet property="videotimeLabel" destination="EYk-4F-ALZ" id="zd0-5S-Acu"/>
             </connections>

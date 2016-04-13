@@ -10,11 +10,18 @@
 #import "WYSTopic.h"
 #import <UIImageView+WebCache.h>
 #import "WYSShowPictureViewController.h"
+#import "WYSVideoPlayView.h"
 
 @interface WYSTopicVoiceView()
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *voicetimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *playcountLabel;
+/** 音频放器**/
+@property(nonatomic,strong) WYSVideoPlayView *player;
+/** 音频播放器按钮**/
+@property (weak, nonatomic) IBOutlet UIButton *playButton;
+
+
 @end
 
 @implementation WYSTopicVoiceView
@@ -25,15 +32,22 @@
 
     // 给图片添加监听器
     self.imageView.userInteractionEnabled = YES;
-    [self.imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showPicture)]];
+
 }
 
-- (void)showPicture
+-(WYSVideoPlayView *)player
 {
-    WYSShowPictureViewController *showPicture = [[WYSShowPictureViewController alloc] init];
-    showPicture.topic = self.topic;
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:showPicture animated:YES completion:nil];
+    if (_player == nil) {
+        WYSVideoPlayView *viewPlayView = [WYSVideoPlayView videoPlayView];
+        viewPlayView.frame = self.imageView.bounds;
+        [self.imageView addSubview:viewPlayView];
+        [viewPlayView setValue:self.imageView.image forKeyPath:@"_imageView.image"];
+        [viewPlayView setValue:@"YES" forKeyPath:@"fullScreenButton.hidden"];
+        _player = viewPlayView;
+    }
+    return _player;
 }
+
 
 - (void)setTopic:(WYSTopic *)topic
 {
@@ -50,4 +64,16 @@
     NSInteger second = topic.voicetime % 60;
     self.voicetimeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd", minute, second];
 }
+
+- (IBAction)playVoice:(UIButton *)sender {
+
+    AVPlayerItem *item = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:self.topic.voiceuri]];
+    [self.player setPlayerItem:item];
+    self.playButton.hidden = YES;
+    self.playcountLabel.hidden = YES;
+    self.voicetimeLabel.hidden = YES;
+    
+}
+
+
 @end

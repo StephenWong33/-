@@ -49,6 +49,10 @@
 @property (nonatomic, assign) NSInteger voicetime;
 /** 视频时长 */
 @property (nonatomic, assign) NSInteger videotime;
+/** 音频链接 */
+@property (nonatomic, copy) NSString *voiceuri;
+/** 视频链接 */
+@property (nonatomic, copy) NSString *videouri;
 /** 播放次数 */
 @property (nonatomic, assign) NSInteger playcount;
 

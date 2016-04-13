@@ -86,6 +86,8 @@
 		DB7683CF1CBE184100DA0634 /* WYSCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7683CD1CBE184100DA0634 /* WYSCommentViewController.m */; };
 		DB7683D01CBE184100DA0634 /* WYSCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB7683CE1CBE184100DA0634 /* WYSCommentViewController.xib */; };
 		DB7683D81CBE2EF000DA0634 /* WYSHttpTools.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7683D71CBE2EF000DA0634 /* WYSHttpTools.m */; };
+		DB7683DC1CBE678A00DA0634 /* WYSVideoPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7683DA1CBE678A00DA0634 /* WYSVideoPlayView.m */; };
+		DB7683DD1CBE678A00DA0634 /* WYSVideoPlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB7683DB1CBE678A00DA0634 /* WYSVideoPlayView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -250,6 +252,9 @@
 		DB7683D21CBE2E8400DA0634 /* Singleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
 		DB7683D61CBE2EF000DA0634 /* WYSHttpTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYSHttpTools.h; sourceTree = "<group>"; };
 		DB7683D71CBE2EF000DA0634 /* WYSHttpTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYSHttpTools.m; sourceTree = "<group>"; };
+		DB7683D91CBE678A00DA0634 /* WYSVideoPlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYSVideoPlayView.h; sourceTree = "<group>"; };
+		DB7683DA1CBE678A00DA0634 /* WYSVideoPlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYSVideoPlayView.m; sourceTree = "<group>"; };
+		DB7683DB1CBE678A00DA0634 /* WYSVideoPlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WYSVideoPlayView.xib; sourceTree = "<group>"; };
 		E4498D14700C753CB1106A66 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -437,6 +442,9 @@
 				DB1E0D5B1CBD487100ECBD55 /* WYSTopicVoiceView.h */,
 				DB1E0D5C1CBD487100ECBD55 /* WYSTopicVoiceView.m */,
 				DB1E0D5D1CBD487100ECBD55 /* WYSTopicVoiceView.xib */,
+				DB7683D91CBE678A00DA0634 /* WYSVideoPlayView.h */,
+				DB7683DA1CBE678A00DA0634 /* WYSVideoPlayView.m */,
+				DB7683DB1CBE678A00DA0634 /* WYSVideoPlayView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -802,6 +810,7 @@
 				DB1E0DDF1CBD487100ECBD55 /* WYSTopicPictureView.xib in Resources */,
 				DB1E0E101CBD487100ECBD55 /* WYSPublishViewController.xib in Resources */,
 				DB1E0DDB1CBD487100ECBD55 /* WYSRecommendTagCell.xib in Resources */,
+				DB7683DD1CBE678A00DA0634 /* WYSVideoPlayView.xib in Resources */,
 				DB1E0DE71CBD487100ECBD55 /* WYSLoginRegisterViewController.xib in Resources */,
 				DB1E0DD71CBD487100ECBD55 /* WYSCommentCell.xib in Resources */,
 				DB1E0DE91CBD487100ECBD55 /* WYSRecommendViewController.xib in Resources */,
@@ -932,6 +941,7 @@
 				DB1E0DFA1CBD487100ECBD55 /* WYSNewViewController.m in Sources */,
 				DB1E0DD41CBD487100ECBD55 /* WYSTopic.m in Sources */,
 				DB1E0DF31CBD487100ECBD55 /* WYSSettingViewController.m in Sources */,
+				DB7683DC1CBE678A00DA0634 /* WYSVideoPlayView.m in Sources */,
 				DB7683D81CBE2EF000DA0634 /* WYSHttpTools.m in Sources */,
 				DB1E0DE21CBD487100ECBD55 /* WYSTopicVoiceView.m in Sources */,
 				DB1E0DCE1CBD487100ECBD55 /* WYSRecommendTagsViewController.m in Sources */,
